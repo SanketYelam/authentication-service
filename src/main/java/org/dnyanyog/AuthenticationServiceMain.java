@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class AuthenticationServiceMain {
-	public static void main(String[] args) throws InterruptedException {
-		SpringApplication.run(AuthenticationServiceMain.class, args);
-	}
+  public static void main(String[] args) throws InterruptedException {
+    SpringApplication.run(AuthenticationServiceMain.class, args);
+  }
 }

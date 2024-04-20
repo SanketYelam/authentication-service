@@ -1,0 +1,45 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+	<changeSet id="20240420" author="Sanket Yelam">
+
+		<createTable tableName="users" schemaName="auth_service">
+			<column name="user_code" type="int">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="user_id" type="int">
+				<constraints nullable="false" />
+			</column>
+			<column name="username" type="varchar(100)">
+				<constraints nullable="false" />
+			</column>
+			<column name="password" type="varchar(100)">
+				<constraints nullable="false" />
+			</column>
+			<column name="email" type="varchar(100)">
+				<constraints nullable="false" />
+			</column>
+			<column name="age" type="varchar(100)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+
+	</changeSet>
+
+	<changeSet id="20240420-1" author="Sanket Yelam">
+
+		<createTable tableName="roles" schemaName="auth_service">
+			<column name="role_id" type="int">
+				<constraints primaryKey="true" />
+			</column>
+
+			<column name="role_namne" type="varchar(100)">
+				<constraints nullable="false" />
+			</column>
+
+		</createTable>
+
+	</changeSet>
+
+
+</databaseChangeLog>

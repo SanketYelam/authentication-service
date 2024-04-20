@@ -14,68 +14,71 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserManagementService {
 
-	Logger logger = LoggerFactory.getLogger(UserManagementService.class);
-	@Autowired
-	UsersRepository userRepo; // Ask Spring to give object of 'Query class for Users' i.e UserRepository
-	@Autowired
-	AddUserResponse userResponse;
-	@Autowired
-	private List<Long> userIds;
+  Logger logger = LoggerFactory.getLogger(UserManagementService.class);
 
-	public Optional<AddUserResponse> addUpdateUser(AddUserRequest request) {
+  @Autowired
+  UsersRepository
+      userRepo; // Ask Spring to give object of 'Query class for Users' i.e UserRepository
 
-		Users usersTable = new Users(); // Create table object in which we set data from request
+  @Autowired AddUserResponse userResponse;
+  @Autowired private List<Long> userIds;
 
-		usersTable.setAge(request.getAge());
-		usersTable.setEmail(request.getEmail());
-		usersTable.setPassword(request.getPassword());
-		usersTable.setUsername(request.getUsername());
+  public Optional<AddUserResponse> addUpdateUser(AddUserRequest request) {
 
-		usersTable = userRepo.save(usersTable); // Ask repostiry to save the data from userTable to DB Table
+    Users usersTable = new Users(); // Create table object in which we set data from request
 
-		userResponse.setMessage("User added successfuly"); // Response set
-		userResponse.setStatus("Success");
-		userResponse.setUserId(usersTable.getUserId()); // get id from saved data and set it in response object
-		userResponse.setStatus("Success");
-		userResponse.setMessage("User found");
-		System.out.println(usersTable.getEmail());
-		System.out.println(usersTable.getUsername());
-		System.out.println(usersTable.getPassword());
-		userResponse.setUserId(usersTable.getUserId());
-		userResponse.getUserData().setEmail(usersTable.getEmail());
-		userResponse.getUserData().setUsername(usersTable.getUsername());
-		userResponse.getUserData().setPassword(usersTable.getPassword());
-		userResponse.getUserData().setAge(usersTable.getAge());
+    usersTable.setAge(request.getAge());
+    usersTable.setEmail(request.getEmail());
+    usersTable.setPassword(request.getPassword());
+    usersTable.setUsername(request.getUsername());
 
-		return Optional.of(userResponse);
-	}
+    usersTable =
+        userRepo.save(usersTable); // Ask repostiry to save the data from userTable to DB Table
 
-	public AddUserResponse getSingleUser(Long userId) {
+    userResponse.setMessage("User added successfuly"); // Response set
+    userResponse.setStatus("Success");
+    userResponse.setUserId(
+        usersTable.getUserId()); // get id from saved data and set it in response object
+    userResponse.setStatus("Success");
+    userResponse.setMessage("User found");
+    System.out.println(usersTable.getEmail());
+    System.out.println(usersTable.getUsername());
+    System.out.println(usersTable.getPassword());
+    userResponse.setUserId(usersTable.getUserId());
+    userResponse.getUserData().setEmail(usersTable.getEmail());
+    userResponse.getUserData().setUsername(usersTable.getUsername());
+    userResponse.getUserData().setPassword(usersTable.getPassword());
+    userResponse.getUserData().setAge(usersTable.getAge());
 
-		Optional<Users> receivedData = userRepo.findById(userId);
+    return Optional.of(userResponse);
+  }
 
-		if (receivedData.isEmpty()) {
-			userResponse.setStatus("Fail");
-			userResponse.setMessage("User not found");
-		} else {
-			Users user = receivedData.get();
-			userResponse.setStatus("Success");
-			userResponse.setMessage("User found");
-			userResponse.setUserId(user.getUserId());
-			userResponse.getUserData().setEmail(user.getEmail());
-			userResponse.getUserData().setUsername(user.getUsername());
-			userResponse.getUserData().setPassword(user.getPassword());
-			userResponse.getUserData().setAge(user.getAge());
-		}
-		return userResponse;
-	}
+  public AddUserResponse getSingleUser(Long userId) {
 
-	public List<Users> getAllUser() {
-		return userRepo.findAll();
-	}
+    Optional<Users> receivedData = userRepo.findById(userId);
 
-	public List<Long> getAllUserIds() {
+    if (receivedData.isEmpty()) {
+      userResponse.setStatus("Fail");
+      userResponse.setMessage("User not found");
+    } else {
+      Users user = receivedData.get();
+      userResponse.setStatus("Success");
+      userResponse.setMessage("User found");
+      userResponse.setUserId(user.getUserId());
+      userResponse.getUserData().setEmail(user.getEmail());
+      userResponse.getUserData().setUsername(user.getUsername());
+      userResponse.getUserData().setPassword(user.getPassword());
+      userResponse.getUserData().setAge(user.getAge());
+    }
+    return userResponse;
+  }
 
-		return userIds;
-	}
+  public List<Users> getAllUser() {
+    return userRepo.findAll();
+  }
+
+  public List<Long> getAllUserIds() {
+
+    return userIds;
+  }
 }
